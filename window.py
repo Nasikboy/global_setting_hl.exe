@@ -2,27 +2,22 @@ from tkinter import *
 import os
 from tkinter import filedialog
 from tkinter import messagebox as mb
-import wx
+
 
 class Winw(object):
 
 
  def window(self):
+     #create window
   self.root = Tk()
   self.root.title("Embodiment Half-life 1")
   self.root.geometry("750x300")
-
   sq_fit_size = 300
-
-
-
   var = IntVar()
-
-
+     #create checkbutton and button
   path = Button(self.root,text = 'Путь к файлу к игре',command = windows_start.path_open).grid(row=1,column=0)
   self.Bunny_Hop = Checkbutton(self.root,text ='Подключить Bunny Hop', variable=var)
   self.Bunny_Hop.grid(row=2,column=0)
-
   self.Jump_up = Checkbutton(self.root,text = 'Прыжок на колёсико вверх')
   self.Jump_up.grid(row=3, column=0)
   self.Jump_down = Checkbutton(self.root,text = 'Прыжок на колёсико вниз')
@@ -37,7 +32,7 @@ class Winw(object):
   self.game_player = Checkbutton(self.root, text='Отдаление экрана от рук персонажа').grid(row=7, column=0)
   Start_script = Button(self.root, text='Выполнение выбранных действий',width=55,height = 5,background = 'aqua',command = windows_start.joint).grid(row=8, column=0)
   self.root.mainloop()
-
+#start button path game
  def path_open(self):
     self.path = filedialog.askdirectory()
     path_hl = self.path + '/hl.exe'
@@ -47,6 +42,7 @@ class Winw(object):
         path_label = Label(self.root,text = self.path).grid(row=1,column=1)
     except FileNotFoundError:
         mb.showerror("Внимание", "Вы указали неправильный путь к игре!")
+    #start button macros
  def joint(self):
      try:
       self.pathcfg = str(self.path + "/valve/config.cfg")
@@ -58,7 +54,8 @@ class Winw(object):
      ready_autoexec = open(papa+'autoexec.txt',"r")
      ready_config = open(papa + 'config.txt',"r")
      bh_txt = 'alias "dj" "+jump;wait;-jump;wait;special"'
-
+     bh_txt2 = 'exec autoexec.cfg'
+     #select bhop
      if self.Bunny_Hop.select:
 
              str_abort = ""
@@ -78,7 +75,7 @@ class Winw(object):
 
      os.rename(papa + 'config.txt', papa + 'config.cfg')
      os.rename(papa + 'autoexec.txt', papa + 'autoexec.cfg')
-
+     mb.showinfo("Console", "Всё было выполнено")
 #     for line in ready.readlines():
  #        print(line)
 
